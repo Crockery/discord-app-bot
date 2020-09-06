@@ -13,12 +13,13 @@ export const startDmApp = async (message: Message) => {
       },
       {
         time: 60000,
+        max: 4,
         errors: ['time']
       }
     )
       .then(collection => {
         console.log(collection.size)
-
+        return collection
         // console.log('HELLOOOOOOOOOO?')
         // console.log(collection.first())
         // if (collection.array().some(message => {

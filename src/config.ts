@@ -1,1 +1,1 @@
-export const SERVER_NAME = 'Night Witches'
+export const SERVER_NAME = 'Server Name'

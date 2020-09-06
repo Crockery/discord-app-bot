@@ -11,12 +11,13 @@ export const startDmApp = async (message: Message) => {
         console.log({ msg: message.content, willReturn })
         return willReturn
       },
-      {
-        time: 60000,
-        max: 4,
-        errors: ['time']
-      }
-    )
+      // {
+      //   time: 60000,
+      //   max: 4,
+      //   errors: ['max']
+      // }
+      {}
+      )
       .then(collection => {
         console.log(collection.size)
         return collection
@@ -43,6 +44,7 @@ export const startDmApp = async (message: Message) => {
     //   await dm.delete()
     // }
   } catch (e) {
+    console.log(e)
     await dm.send('Timed Out')
     await dm.delete()
   }

@@ -43,8 +43,8 @@ export class DiscordBot {
       //* filters out requests from bots
       if (message.author.bot) return;
 
-      if (message.content === 'ping') {
-        await message.reply('Pong!');
+      if (message.content === '!apply') {
+        await message.reply(`Application process started by ${message.author.username}`);
       }
     });
   };

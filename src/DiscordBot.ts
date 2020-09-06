@@ -47,7 +47,7 @@ export class DiscordBot {
 
       if (message.content === '!apply') {
         await message.reply(`Thanks for your interest in **${config.SERVER_NAME}**. Sending you a DM to start the application process.`);
-        await startDmApp(message)
+        startDmApp(message)
       }
     });
   };

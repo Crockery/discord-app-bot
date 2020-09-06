@@ -17,25 +17,30 @@ export const startDmApp = async (message: Message) => {
       }
     )
       .then(collection => {
-        console.log(collection.first())
-        if (collection.array().some(message => {
-          console.log('FILTERED: ', message.content)
-          return message.content === '!start'
-        })) {
-          return true
-        } else {
-          return false
-        }
+        console.log(collection.size)
+
+        // console.log('HELLOOOOOOOOOO?')
+        // console.log(collection.first())
+        // if (collection.array().some(message => {
+        //   console.log('FILTERED: ', message.content)
+        //   return message.content === '!start'
+        // })) {
+        //   return true
+        // } else {
+        //   return false
+        // }
       })
       .catch(() => {
         throw new Error('Timed Out')
       })
-    if (hasStarted) {
-      await dm.send('Starting Application Process')
-    } else {
-      await dm.send('Ending Application Process')
-      await dm.delete()
-    }
+    console.log(hasStarted)
+    // console.log({ hasStarted })
+    // if (hasStarted) {
+    //   await dm.send('Starting Application Process')
+    // } else {
+    //   await dm.send('Ending Application Process')
+    //   await dm.delete()
+    // }
   } catch (e) {
     await dm.send('Timed Out')
     await dm.delete()

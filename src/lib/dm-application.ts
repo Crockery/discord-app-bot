@@ -9,7 +9,7 @@ export const startDmApp = async (message: Message) => {
       (message: Message) => message.content === '!start' || message.content === '!end',
       {
         time: 60000,
-        max: 1
+        maxProcessed: 1
       }
     )
       .then(collection => collection.first())

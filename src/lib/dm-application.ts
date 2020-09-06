@@ -6,7 +6,10 @@ export const startDmApp = async (message: Message) => {
   let appProgress
   try {
     const hasStarted = await dm.awaitMessages(
-      (message: Message) => message.content === '!start' || message.content === '!end',
+      (message: Message) => {
+        console.log(message.content)
+        return message.content === '!start' || message.content === '!end'
+      },
       {
         time: 60000,
         errors: ['time']

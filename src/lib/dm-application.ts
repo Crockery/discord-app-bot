@@ -8,6 +8,7 @@ export const startDmApp = async (message: Message) => {
     const hasStarted = await dm.awaitMessages(
       (message: Message) => {
         console.log('MESSAGE: ', message.content)
+        console.log(message.content === '!start', message.content === '!end')
         return message.content === '!start' || message.content === '!end'
       },
       {
@@ -16,6 +17,7 @@ export const startDmApp = async (message: Message) => {
       }
     )
       .then(collection => {
+        console.log(collection.first())
         if (collection.array().some(message => {
           console.log('FILTERED: ', message.content)
           return message.content === '!start'

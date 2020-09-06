@@ -1,4 +1,5 @@
 import { Client, Message } from 'discord.js';
+import * as config from './config'
 
 export class DiscordBot {
   private static instance: DiscordBot;
@@ -44,7 +45,9 @@ export class DiscordBot {
       if (message.author.bot) return;
 
       if (message.content === '!apply') {
-        await message.reply(`Application process started by ${message.author.username}`);
+        await message.reply(`Thanks for your interest in **${config.SERVER_NAME}**. Sending you a DM to start the application process.`);
+        const dm = await message.author.createDM()
+        await dm.send('HELLO')
       }
     });
   };

@@ -7,9 +7,16 @@ export const startDmApp = async (message: Message) => {
   try {
     const hasStarted = await dm.awaitMessages(
       (message: Message) => {
-        const willReturn = message.content === '!start' || message.content === '!end'
-        console.log({ msg: message.content, willReturn })
-        return willReturn
+        return new Promise((res, rej) => {
+          const willReturn = message.content === '!start' || message.content === '!end'
+          console.log({ msg: message.content, willReturn })
+          if (willReturn) {
+            res()
+          } else {
+            rej()
+          }
+        })
+
       },
       // {
       //   time: 60000,

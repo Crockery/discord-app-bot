@@ -1,1 +1,2 @@
 export const SERVER_NAME = 'Server Name'
+export const APPLICATION_CHANNEL_ID = '570306708652687414'

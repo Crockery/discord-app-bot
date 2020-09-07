@@ -3,6 +3,8 @@ import * as config from './config'
 import { startDmApp } from './lib/dm-application'
 import { DB } from './db'
 import { endApplication } from './helpers'
+import setup, { isSetup } from './commands/setup'
+import apply from './commands/apply'
 
 export class DiscordBot {
   private static instance: DiscordBot;
@@ -36,13 +38,11 @@ export class DiscordBot {
 
     this.setReadyHandler();
     this.setMessageHandler();
-
   }
   
   private setReadyHandler(): void {
     this.client.on('ready', async () => {
       console.log(`Logged in as ${this.client.user.tag}!`);
-      this.welcomeChannel = await this.client.channels.fetch(config.APPLICATION_CHANNEL_ID) as TextChannel
     });
   };
 
@@ -52,25 +52,19 @@ export class DiscordBot {
         //* filters out requests from bots
         if (message.author.bot) return;
 
-        if (message.content === '!end' && message.channel.type === 'dm') {
-          endApplication(
-            'ended their application early',
-            this.db,
-            message,
-            this.welcomeChannel
-          )
-        }
-
         if (message.content === '!apply' && message.channel.type !== 'dm') {
-          const hasActiveDM = this.db.has(message.author.id)
-          if (!hasActiveDM) {
-            const welcomeMessage = await message.reply(`Thanks for your interest in **${config.SERVER_NAME}**. Sending you a DM to start the application process.`);
-            this.db.set(message.author.id, { welcomeMessageId: welcomeMessage.id })
-            startDmApp(message, this.db)
+          if (!isSetup(message)) {
+            message.reply('This server has not been set up to take applications yet. An admin should use the `!setup` command.')
+          } else {
+            apply(message, this.client.user.id)
           }
         }
+
+        if (message.content === '!setup' && message.channel.type !== 'dm') {
+          setup(message)
+        }
       } catch (e) {
-        console.log(e)
+        throw new Error(e)
       }
     });
   };

@@ -1,5 +1,5 @@
 import { DB } from './db'
-import { Message, TextChannel } from 'discord.js'
+import { Message, TextChannel, Guild, GuildChannel, Role } from 'discord.js'
 
 export const endApplication = async (
   reason: string,
@@ -47,4 +47,16 @@ export const endApplication = async (
   } catch (e) {
     throw new Error(e)
   }
+}
+
+export const getGuildAppChannel = (guild: Guild): GuildChannel | undefined => {
+  return guild.channels.cache.array().find(channel => {
+    return channel.name === 'Applications' && channel.type === 'category'
+  })
+}
+
+export const getRecruiterRole = (guild: Guild): Role | undefined => {
+  return guild.roles.cache.array().find(role => {
+    return role.name === 'Recruiter'
+  })
 }

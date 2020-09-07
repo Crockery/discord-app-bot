@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import { APPLICATION_CHANNEL_ID } from '../config'
+import { WELCOME_CHANNEL_ID } from '../config'
 import { DB } from '../db'
 import { endApplication } from '../helpers'
 
